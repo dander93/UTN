@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1493265165 source:c:\backup\doug\programacion\c\tp 1 - ej 15\main.cpp
+	<iostream>
+	<locale>
+	<conio.h>
+
