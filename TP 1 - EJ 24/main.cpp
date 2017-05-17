@@ -1,6 +1,5 @@
 #include <iostream>
 #include <locale.h> // por las tildes y caracteres del español.
-#include <vector> // para trabajar con el vecctor dinamico.
 
 using namespace std;
 
@@ -24,66 +23,58 @@ int main() {
     setlocale (LC_ALL, "spanish");
 
     //variables
-    vector<int> temp,vSublotes;
-    int valor=0,i=0,j=0,promedio=0,sublotes=0,k=0;
+    int valor=0,sublotes=0,promedio=0,contador=0,vmaximo,lmaximo=0,pmaximo=0,vminimo;
+
+
     cout << "Programa que divide un lote de numeros en sublotes e informa: " << endl;
     cout << "\t a. Por cada sublote el promedio de valores." << endl;
     cout << "\t b. El total de sublotes procesados." << endl;
-    cout << "\t c. El valor máximo del conjunto, indicando en que sublote se encontró y la posiciónrelativa del mismo dentro del sublote." << endl;
+    cout << "\t c. El valor máximo del conjunto, indicando en que sublote se encontró y la posición relativa del mismo dentro del sublote." << endl;
     cout << "\t d. Valor mínimo de cada sublote" << endl << endl;
 
     cout << "Ingresar el lote de números, se separan los lotes por medio de 0. Finaliza ingresando un valor negativo." << endl << endl;
 
-    //ingreso todos los valores en la matriz, establezco el largo de la matriz dinámicamente, e incremento el recorrido.
-    while(valor >= 0) {
+    do{ // ingreso valores
 
         cout << "Ingrese un valor: ";
         cin >> valor;
 
-        //llenamos el vector con valores.
-        if(valor >= 0) {
-            i++;
-            temp.resize(i);//re acomodo el tamaño del vector sumando una posición cuando se va a introducir un valor.
-            temp[i-1]=valor;//guardo valor en la posición anterior a la ultima ( agregada con resize ).
-        } else {
-            cout << "Se ingreso un valor negativo. Finalizada la secuencia de ingreso de numeros." << endl;
-        }
-    }
+        if(valor == 0){
+            cout << "se ingreso un 0. Fin de lote." << endl;
 
-    cout << endl << "*********************************" << endl ;
-    cout << "Informe" << endl;
-    cout << "*********************************" << endl ;
+            cout << "El promedio de este sublote fue: " << (float)(promedio/contador) << endl;
+            cout << "El valor minimo del sublote fue: " << vminimo << endl;
+            sublotes++;
+            promedio = 0;
+            contador = 0;
 
-    if( i > 0 ) {
-        for(i=0; i<temp.size(); i++) {//recorro todo el array
-            if(temp[i] == 0) { //encuentro un sublote
+        }else if(valor > 0){// si el valor es positivo acumulo valores y cuento y obtengo el valor máximo.
 
-                sublote++;
-                vSublotes.resize(sublote);
-
-                if(temp[i-1]!=0) {
-                    for(j=i; j==0; j--) { //trabajo el sublote
-                        promedio += temp[j];
-                    }
-                    promedio = promedio / i
-                    vSublotes[k]
-                }
+            if( (valor > vmaximo) || ( (sublotes == 0) && (contador==0) ) ){
+                vmaximo = valor; // el valor maximo
+                lmaximo = sublotes;//el lote en el que se encuentra el valor maximo
+                pmaximo = contador;//la posición dentro del sublote
             }
+
+            if ( (valor < vminimo) || (contador == 0) ){
+                vminimo = valor;//minimo del sublote
+            }
+                contador++;
+                promedio += valor;
+        }else if(valor < 0){ // Si el valor ingresado es negativo envío un mensaje y salgo del ciclo.
+            cout << endl <<"Se ingreso un valor negativo, el proceso de ingreso de valores ha finalizado." << endl;
+            break;
         }
-    }
+    }while (valor >= 0);
+
+    cout << endl << "###########################" << endl;
+    cout <<"INFORME" << endl;
+    cout << "###########################" << endl << endl;
+    cout << "El valor máximo ingresado fue: " << vmaximo << ", en el sublote: " << lmaximo+1 << ", en la posición: " << pmaximo << endl;
+    cout << "La cantidad de sublotes procesados fue: " << sublotes << endl;
 
 
-
-
-
-
-
-}
-else {
-    cout<<"El primer valor ingresado es utilizado para la salida de la secuencia de ingreso. No se ingreso ningun valor , por lo cual no hay informe que efectuar." << endl;
-}
-
-cout << endl << endl << "Presione una tecla para salir...";
-cin.get();
-return 0;
+    cout << endl << endl << "Presione una tecla para salir...";
+    cin.get();
+    return 0;
 }
