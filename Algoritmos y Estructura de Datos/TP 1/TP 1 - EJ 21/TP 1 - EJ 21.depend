@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1493801720 source:c:\backup\doug\programacion\git\tp 1 - ej 21\main.cpp
+	<iostream>
+	<locale.h>
+	<conio.h>
+	<ctype.h>
+
